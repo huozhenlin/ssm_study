@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace鐢ㄤ簬涓嶥AO灞傜殑鎺ュ彛杩涜缁戝畾锛岃繖鏍峰瓙鎴戜滑鏃犻渶瀹炵幇DAO鎺ュ彛鐨勬柟娉�
+鍏舵帴鍙ｇ被灏辫兘澶熻嚜鍔ㄦ壘鍒扮浉鍏崇殑sql璇彞杩涜缁戝畾
+-->
+<mapper namespace="com.login.dao.IGoodsDao">
+    <!--SELECT琛ㄧず鏌ヨ锛屽畠鐨刬d鍚嶇О蹇呴』涓嶥AO灞傛帴鍙ｇ殑鏂规硶鍚嶇О鐩稿悓锛屽惁鑰呮棤娉曠粦瀹�-->
+
+    <select id="select_all_goods" resultType="Good">
+        SELECT * from goods
+    </select>
+    <select id="select_by_id" parameterType="int" resultType="Good">
+        SELECT * FROM`  goods WHERE id=1
+    </select>
+    <delete id="delete" parameterType="string">
+        delete FROM goods WHERE goods_name=#{goods_name}
+    </delete>
+    <update id="update">
+        UPDATE goods set goods_link=#{goods_link},goods_price=#{goods_price} WHERE goods_name=#{goods_name}
+    </update>
+    <insert id="insert">
+        INSERT INTO goods VALUES (NULL ,#{goods_name},#{goods_link},#{goods_price})
+    </insert>
+</mapper>

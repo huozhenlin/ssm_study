@@ -1,0 +1,52 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-3.0.xsd
+               http://www.springframework.org/schema/mvc
+               http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+    <!--扫描控制器，当配置了他后，Spring会自动到com.login.controller下扫描带有-->
+    <!--@controller @service @componert等注解类，将它们实例化-->
+    <context:component-scan base-package="com.login.controller"></context:component-scan>
+
+    <!--注册拦截器-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/jsp/*.jsp"/>
+            <bean class="com.login.HandlerIntercetor.LoginIntercetor"></bean>
+        </mvc:interceptor>
+
+
+    </mvc:interceptors>
+    <!--<mvc:annotation-driver/>会自动注册DefaultAnnotationHandlerMapping与-->
+    <!--AnnotationMethodHandlerAdapter两个bean，会解决一些@controller注解使用时的提前配置-->
+    <mvc:annotation-driven/>
+    <mvc:resources mapping="/JavaScript/**"
+                   location="/static_resources/javascript/"/>
+    <mvc:resources mapping="/styles/**"
+                   location="/static_resources/css/"/>
+    <mvc:resources mapping="/images/**"
+                   location="/static_resources/images/"/>
+    <mvc:default-servlet-handler />
+    <!--配置首页控制器-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <!--前缀-->
+        <property name="prefix" value="/"/>
+        <!--后缀-->
+        <property name="suffix" value=""/>
+    </bean>
+
+    <!-- 上传文件 -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="utf-8"/>
+        <!-- 最大内存大小 -->
+        <property name="maxInMemorySize" value="10240"/>
+        <!-- 最大文件大小，-1为不限制大小 -->
+        <property name="maxUploadSize" value="-1"/>
+    </bean>
+
+</beans>
